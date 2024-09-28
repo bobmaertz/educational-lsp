@@ -20,12 +20,12 @@ type InitializeResult struct {
 }
 
 type ServerCapabilities struct {
-	TextDocumentSync   int `json:"textDocumentSync"`
-	//TextDocumentSync   TextDocumentSyncOptions `json:"textDocumentSync"`
-	HoverProvider      bool                    `json:"hoverProvider"`
-	DefinitionProvider bool                    `json:"definitionProvider"`
-	CodeActionProvider bool                    `json:"codeActionProvider"`
-	CompletionProvider map[string]any          `json:"completionProvider"`
+	TextDocumentSync           int            `json:"textDocumentSync"`
+	HoverProvider              bool           `json:"hoverProvider"`
+	DefinitionProvider         bool           `json:"definitionProvider"`
+	CodeActionProvider         bool           `json:"codeActionProvider"`
+	CompletionProvider         map[string]any `json:"completionProvider"`
+	DocumentFormattingProvider bool           `json:"documentFormattingProvider"`
 }
 
 type TextDocumentSyncOptions struct {
@@ -55,15 +55,16 @@ func NewInitializeResponse(id int) InitializeResponse {
 		},
 		Result: InitializeResult{
 			Capabilities: ServerCapabilities{
-                TextDocumentSync: 1,
-		//		TextDocumentSync: TextDocumentSyncOptions{
-	//				OpenClose: true,
-	//				Change:    1,
-	//			},
+				TextDocumentSync:           1,
+				DocumentFormattingProvider: true,
+				//		TextDocumentSync: TextDocumentSyncOptions{
+				//				OpenClose: true,
+				//				Change:    1,
+				//			},
 			},
 			ServerInfo: ServerInfo{
-				Name: "educationallsp",
-                Version: "0.0.1-alpha",
+				Name:    "educationallsp",
+				Version: "0.0.1-alpha",
 			},
 		},
 	}

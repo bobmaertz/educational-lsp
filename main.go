@@ -12,6 +12,8 @@ import (
 	"github.com/bobmaertz/test-lsp/pkg/rpc"
 )
 
+const name = "educational-lsp" 
+
 func main() {
 	l := getLogger("/Users/bob/personal/education-lsp/out.log")
 	l.Println("Starting LSP")
@@ -62,6 +64,12 @@ func handleMessage(l *log.Logger, state analysis.State, method string, contents 
         for _, change := range notification.Params.ContentChanges {
 	    	state.UpdateDocument(notification.Params.TextDocument.Uri, change.Text)
         }
+    case "textDocument/willSave": 
+        l.Printf("will Save: %v", string(contents)) 
+    case "textDocument/didSave":
+        l.Printf("did Save: %v", string(contents)) 
+    case "textDocument/formatting":
+        l.Printf("formatting: %v", "<>") 
 	case "textDocument/completion":
 		var request lsp.TextCompletionRequest
 		if err := json.Unmarshal(contents, &request); err != nil {
@@ -83,5 +91,5 @@ func getLogger(filename string) *log.Logger {
 		panic("error opening log file")
 	}
 
-	return log.New(file, "[educationallsp] ", log.Ldate|log.Ltime|log.Lshortfile)
+	return log.New(file, "["+name+"] ", log.Ldate|log.Ltime|log.Lshortfile)
 }

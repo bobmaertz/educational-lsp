@@ -53,8 +53,8 @@ func SplitFunc(data []byte, atEOF bool) (advance int, token []byte, err error) {
 	contentLenRaw := header[len("Content-Length: "):]
 	contentLen, err := strconv.Atoi(string(contentLenRaw))
 	if err != nil {
-        // if we cant convert to integer, we need to fail.  
-        return 0, nil, fmt.Errorf("unable to convert Content-Length value [%v] to int: %v", contentLenRaw, err)
+		// if we cant convert to integer, we need to fail.
+		return 0, nil, fmt.Errorf("unable to convert Content-Length value [%v] to int: %v", contentLenRaw, err)
 	}
 
 	if len(content) < int(contentLen) {

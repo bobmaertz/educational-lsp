@@ -31,6 +31,6 @@ func TestDecode(t *testing.T) {
 	}
 
 	if string(content) != string("{\"method\":\"hel\"}") {
-		t.Fatal("")
+		t.Fatal("decode content not equal")
 	}
 }
